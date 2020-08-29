@@ -10,5 +10,13 @@ fn main() {
         return;
     }
 
-    println!("{}", &text);
+    let result: String = text.chars()
+        .map(|x| if rand::random() {
+            x.to_uppercase().to_string()
+        } else {
+            x.to_lowercase().to_string()
+        })
+        .collect();
+
+    println!("{}", &result);
 }
