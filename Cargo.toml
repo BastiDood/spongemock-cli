@@ -1,0 +1,8 @@
+[package]
+name = "spongemock_cli"
+version = "0.1.0"
+authors = [ "Basti Ortiz <ortizbasti16@gmail.com>" ]
+edition = "2018"
+
+[dependencies]
+rand = "~0.7"
