@@ -2,6 +2,7 @@
 name = "spongemock_cli"
 version = "0.1.0"
 license = "MIT"
+repository = "https://github.com/Some-Dood/spongemock_cli"
 authors = [ "Basti Ortiz <ortizbasti16@gmail.com>" ]
 edition = "2018"
 
