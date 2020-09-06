@@ -18,5 +18,5 @@ fn main() {
         })
         .collect();
 
-    println!("{}", &result);
+    println!("{}", result.as_str());
 }
