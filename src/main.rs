@@ -27,7 +27,7 @@ fn main() {
             let mut ch: char = byte.into();
             if random() { ch.make_ascii_uppercase(); }
             else { ch.make_ascii_lowercase(); }
-            return ch;
+            ch
         })
         .collect();
 
