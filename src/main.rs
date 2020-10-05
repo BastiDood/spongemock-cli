@@ -7,7 +7,7 @@ fn main() {
 
     let text = match input {
         Some(text) => {
-            if let "--help" | "-h" | "" = text.as_str() {
+            if let "--help" | "-h"  = text.as_str() {
                 println!("spongemock [--help, -h] [text]");
                 return;
             }
