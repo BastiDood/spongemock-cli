@@ -1,5 +1,5 @@
 use std::env;
-use rand;
+use rand::random;
 
 fn main() {
     let mut args = env::args().skip(1);
@@ -10,11 +10,14 @@ fn main() {
         return;
     }
 
-    let result: String = text.chars()
-        .map(|x| if rand::random() {
-            x.to_uppercase().to_string()
-        } else {
-            x.to_lowercase().to_string()
+    let result: String = text
+        .into_bytes()
+        .into_iter()
+        .map(|byte| {
+            let mut ch: char = byte.into();
+            if random() { ch.make_ascii_uppercase(); }
+            else { ch.make_ascii_lowercase(); }
+            return ch;
         })
         .collect();
 
