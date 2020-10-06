@@ -21,7 +21,7 @@ fn main() {
     };
 
     // SAFETY: Since we are looking into a mutable slice
-    // into an already valid `String`, the bytes have already
+    // of an already valid `String`, the bytes have already
     // been checked beforehand for UTF-8 compliance.
     let underlying_vector = unsafe { text.as_mut_vec() };
     for byte in underlying_vector.iter_mut() {
