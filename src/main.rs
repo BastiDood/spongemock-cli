@@ -29,6 +29,5 @@ fn main() {
         else { byte.make_ascii_lowercase(); }
     } 
 
-    print!("{}", &text);
-
+    print!("{}", text.as_str());
 }
