@@ -21,6 +21,7 @@ fn main() {
     };
 
     let spongemocked: String = text
+        .trim()
         .chars()
         .map(|c| if random() { c.to_ascii_uppercase() } else { c.to_ascii_lowercase() })
         .collect();
