@@ -23,12 +23,13 @@ fn main() {
     let spongemocked: String = input
         .trim()
         .chars()
-        .map(|c| {
+        .map(|mut c| {
             if random() {
-                c.to_ascii_uppercase()
+                c.make_ascii_uppercase();
             } else {
-                c.to_ascii_lowercase()
+                c.make_ascii_lowercase();
             }
+            c
         })
         .collect();
 
