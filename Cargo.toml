@@ -7,4 +7,5 @@ authors = [ "Basti Ortiz <ortizbasti16@gmail.com>" ]
 edition = "2018"
 
 [dependencies]
-rand = "~0.8"
+clap = { version = "2.33", default-features = false }
+rand = "0.8"
