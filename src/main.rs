@@ -1,9 +1,6 @@
 use clap::{App, Arg};
 use rand::random;
-use std::{
-    env,
-    io::{stdin, Read},
-};
+use std::io::{stdin, Read};
 
 fn main() {
     // Set up CLI
