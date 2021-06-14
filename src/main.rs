@@ -1,6 +1,9 @@
 use clap::{App, Arg};
 use rand::random;
-use std::io::{stdin, Read};
+use std::{
+    borrow::Cow,
+    io::{stdin, Read},
+};
 
 fn main() {
     // Set up CLI
@@ -15,20 +18,20 @@ fn main() {
     // Parse results
     let mut input = matches
         .value_of("input")
-        .map(ToOwned::to_owned)
+        .map(Cow::Borrowed)
         .unwrap_or_else(|| {
             let mut buffer = String::with_capacity(32);
             stdin()
                 .lock()
                 .read_to_string(&mut buffer)
                 .expect("unable to read from standard input");
-            buffer
+            Cow::Owned(buffer)
         });
 
     // Optimize the case when all characters are ASCII-based
     if input.is_ascii() {
         // SAFETY: The input has been verified to be within the ASCII range.
-        let ascii_bytes = unsafe { input.as_bytes_mut() };
+        let ascii_bytes = unsafe { input.to_mut().as_bytes_mut() };
         for byte in ascii_bytes {
             if random() {
                 byte.make_ascii_uppercase();
