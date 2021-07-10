@@ -5,7 +5,6 @@ use std::io::{self, stdin, Read};
 fn main() -> io::Result<()> {
     // Set up CLI
     let matches = App::new("Spongemock CLI")
-        .bin_name("spongemock")
         .version(env!("CARGO_PKG_VERSION"))
         .author(env!("CARGO_PKG_AUTHORS"))
         .about(env!("CARGO_PKG_DESCRIPTION"))

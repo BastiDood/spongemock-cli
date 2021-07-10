@@ -1,12 +1,16 @@
 [package]
 name = "spongemock_cli"
 description = "A simple CLI tool to Spongemock-ify text."
-version = "0.2.0"
+version = "0.3.0"
 license = "MIT"
 repository = "https://github.com/Some-Dood/spongemock_cli"
 authors = [ "Basti Ortiz <ortizbasti16@gmail.com>" ]
 edition = "2018"
 resolver = "2"
+
+[[bin]]
+name = "spongemock"
+path = "src/main.rs"
 
 [dependencies]
 clap = { version = "2.33", default-features = false }
