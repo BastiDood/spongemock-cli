@@ -1,5 +1,5 @@
 use clap::{App, Arg};
-use rand::random;
+use rand::{rngs::OsRng, Rng};
 use std::io::{self, stdin, Read};
 
 fn main() -> io::Result<()> {
@@ -25,7 +25,7 @@ fn main() -> io::Result<()> {
         // SAFETY: The input has been verified to be within the ASCII range.
         let ascii_bytes = unsafe { input.as_bytes_mut() };
         for byte in ascii_bytes {
-            if random() {
+            if OsRng.gen_bool(0.5) {
                 byte.make_ascii_uppercase();
             } else {
                 byte.make_ascii_lowercase();
@@ -40,7 +40,7 @@ fn main() -> io::Result<()> {
         .trim()
         .chars()
         .map(|mut c| {
-            if random() {
+            if OsRng.gen_bool(0.5) {
                 c.make_ascii_uppercase();
             } else {
                 c.make_ascii_lowercase();
