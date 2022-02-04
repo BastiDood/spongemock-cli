@@ -28,28 +28,31 @@ fn main() -> Result<()> {
 
         // Fill out the rest of the UTF-8 `char` buffer
         let mut char_be = [byte, 0, 0, 0];
+        let mut index = 1;
         for curr in char_be[1..].iter_mut() {
             let byte = iter.next().ok_or(ErrorKind::InvalidData)??;
             if curr.leading_ones() != 1 {
                 return Err(ErrorKind::InvalidData.into());
             }
+
             *curr = byte;
+            index += 1;
         }
 
-        // SAFETY: We have verified `char_be` to be valid UTF-8.
-        let word = u32::from_be_bytes(char_be);
-        let ch = unsafe { char::from_u32_unchecked(word) };
-
-        // Finally randomize the Spongemock
-        if rng.gen_bool(0.5) {
-            for ch in ch.to_uppercase() {
-                let slice = ch.encode_utf8(&mut char_be).as_bytes();
-                output.write_all(slice)?;
-            }
-        } else {
-            for ch in ch.to_lowercase() {
-                let slice = ch.encode_utf8(&mut char_be).as_bytes();
-                output.write_all(slice)?;
+        // We have verified `char_be` to be valid UTF-8 up to the `index` (inclusive).
+        let text = core::str::from_utf8(&char_be[..=index]).unwrap();
+        for ch in text.chars() {
+            let mut buf = [0; 4];
+            if rng.gen_bool(0.5) {
+                for c in ch.to_uppercase() {
+                    let bytes = c.encode_utf8(&mut buf).as_bytes();
+                    output.write_all(bytes)?;
+                }
+            } else {
+                for c in ch.to_lowercase() {
+                    let bytes = c.encode_utf8(&mut buf).as_bytes();
+                    output.write_all(bytes)?;
+                }
             }
         }
     }
