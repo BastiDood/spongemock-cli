@@ -16,8 +16,7 @@ fn main() -> Result<()> {
                 ch.make_ascii_lowercase()
             }
 
-            let unicode: u32 = ch.into();
-            let bytes = unicode.to_be_bytes();
+            let bytes = u32::from(ch).to_be_bytes();
             let text = String::from_utf8_lossy(&bytes);
             output.write_all(text.as_bytes())?;
         }
