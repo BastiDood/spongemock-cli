@@ -7,9 +7,15 @@ fn main() -> Result<()> {
     let mut rng = SmallRng::from_entropy();
 
     let iter = bytes.by_ref();
-    while let Some(byte) = iter.next().transpose()? {
+    while let Some(mut byte) = iter.next().transpose()? {
         // Check if without leading one
         if byte < 0b_1000_0000 {
+            if rng.gen_bool(0.5) {
+                byte.make_ascii_uppercase();
+            } else {
+                byte.make_ascii_lowercase();
+            }
+
             output.write_all(&[byte])?;
             continue;
         }
