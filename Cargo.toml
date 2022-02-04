@@ -4,7 +4,7 @@ description = "A simple CLI tool to Spongemock-ify text."
 version = "0.5.0"
 license = "MIT"
 repository = "https://github.com/Some-Dood/spongemock_cli"
-authors = [ "Basti Ortiz <ortizbasti16@gmail.com>" ]
+authors = ["Basti Ortiz <ortizbasti16@gmail.com>"]
 edition = "2021"
 resolver = "2"
 
@@ -12,5 +12,7 @@ resolver = "2"
 name = "spongemock"
 path = "src/main.rs"
 
-[dependencies]
-rand = { version = "0.8", default-features = false, features = ["small_rng"] }
+[dependencies.rand]
+version = "0.8"
+default-features = false
+features = ["getrandom", "small_rng"]

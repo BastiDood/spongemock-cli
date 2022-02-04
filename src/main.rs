@@ -1,54 +1,29 @@
-use clap::{App, Arg};
-use rand::{rngs::OsRng, Rng};
-use std::io::{self, stdin, Read};
+use rand::{rngs::SmallRng, Rng, SeedableRng};
+use std::io::{stdin, stdout, BufRead, BufReader, Result, Write};
 
-fn main() -> io::Result<()> {
-    // Set up CLI
-    let matches = App::new("Spongemock CLI")
-        .version(env!("CARGO_PKG_VERSION"))
-        .author(env!("CARGO_PKG_AUTHORS"))
-        .about(env!("CARGO_PKG_DESCRIPTION"))
-        .arg(Arg::with_name("input"))
-        .get_matches();
+fn main() -> Result<()> {
+    let mut input = BufReader::new(stdin());
+    let mut output = stdout();
 
-    // Parse results
-    let mut input = if let Some(input) = matches.value_of("input") {
-        input.to_owned()
-    } else {
-        let mut buffer = String::with_capacity(32);
-        stdin().lock().read_to_string(&mut buffer)?;
-        buffer
-    };
+    let mut rng = SmallRng::from_entropy();
+    let mut buffer = String::new();
 
-    // Optimize the case when all characters are ASCII-based
-    if input.is_ascii() {
-        // SAFETY: The input has been verified to be within the ASCII range.
-        let ascii_bytes = unsafe { input.as_bytes_mut() };
-        for byte in ascii_bytes {
-            if OsRng.gen_bool(0.5) {
-                byte.make_ascii_uppercase();
+    while input.read_line(&mut buffer)? != 0 {
+        for mut ch in buffer.chars() {
+            if rng.gen_bool(0.5) {
+                ch.make_ascii_uppercase()
             } else {
-                byte.make_ascii_lowercase();
+                ch.make_ascii_lowercase()
             }
+
+            let unicode: u32 = ch.into();
+            let bytes = unicode.to_be_bytes();
+            let text = String::from_utf8_lossy(&bytes);
+            output.write_all(text.as_bytes())?;
         }
-        print!("{}", input);
-        return Ok(());
-    }
 
-    // Otherwise, implement the less efficient version which requires copying
-    let spongemocked: String = input
-        .trim()
-        .chars()
-        .map(|mut c| {
-            if OsRng.gen_bool(0.5) {
-                c.make_ascii_uppercase();
-            } else {
-                c.make_ascii_lowercase();
-            }
-            c
-        })
-        .collect();
-    print!("{}", spongemocked);
+        buffer.clear();
+    }
 
     Ok(())
 }
