@@ -21,26 +21,24 @@ fn main() -> Result<()> {
         }
 
         // Otherwise, we expect full UTF-8 encoding
-        let leading_ones = byte.leading_ones();
+        let leading_ones = byte.leading_ones() as usize;
         if !(2..=4).contains(&leading_ones) {
             return Err(ErrorKind::InvalidData.into());
         }
 
         // Fill out the rest of the UTF-8 `char` buffer
         let mut char_be = [byte, 0, 0, 0];
-        let mut index = 1;
-        for curr in char_be[1..].iter_mut() {
+        for curr in char_be[1..leading_ones].iter_mut() {
             let byte = iter.next().ok_or(ErrorKind::InvalidData)??;
             if curr.leading_ones() != 1 {
                 return Err(ErrorKind::InvalidData.into());
             }
 
             *curr = byte;
-            index += 1;
         }
 
         // We have verified `char_be` to be valid UTF-8 up to the `index` (inclusive).
-        let text = core::str::from_utf8(&char_be[..=index]).unwrap();
+        let text = core::str::from_utf8(&char_be[..leading_ones]).unwrap();
         for ch in text.chars() {
             let mut buf = [0; 4];
             if rng.gen_bool(0.5) {
