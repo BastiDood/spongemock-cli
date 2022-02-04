@@ -1,5 +1,5 @@
-use rand::{rngs::SmallRng, SeedableRng, Rng};
-use std::io::{stdin, stdout, Result, Write, Read, ErrorKind};
+use rand::{rngs::SmallRng, Rng, SeedableRng};
+use std::io::{stdin, stdout, ErrorKind, Read, Result, Write};
 
 fn main() -> Result<()> {
     let mut bytes = stdin().bytes();
