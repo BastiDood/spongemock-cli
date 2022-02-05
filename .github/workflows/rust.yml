@@ -16,9 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Run Formatter
+    - name: Formatter
       run: cargo fmt --check
-    - name: Run Linter
+    - name: Build
+      run: cargo build --verbose
+    - name: Linter
       run: cargo clippy
-    - name: Run Tests
+    - name: Tests
       run: cargo test --verbose
