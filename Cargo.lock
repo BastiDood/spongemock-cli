@@ -44,8 +44,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "spongemock_cli"
-version = "0.6.2"
+name = "spongemock"
+version = "0.6.4"
 dependencies = [
  "rand",
 ]

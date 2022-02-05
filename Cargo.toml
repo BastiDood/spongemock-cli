@@ -1,16 +1,12 @@
 [package]
-name = "spongemock_cli"
+name = "spongemock"
 description = "A simple CLI tool to Spongemock-ify text."
-version = "0.6.2"
+version = "0.6.4"
 license = "MIT"
 repository = "https://github.com/Some-Dood/spongemock_cli"
 authors = ["Basti Ortiz <ortizbasti16@gmail.com>"]
 edition = "2021"
 resolver = "2"
-
-[[bin]]
-name = "spongemock"
-path = "src/main.rs"
 
 [dependencies.rand]
 version = "0.8"
