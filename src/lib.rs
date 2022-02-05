@@ -42,8 +42,8 @@ where
             *curr = byte;
         }
 
-        // We have verified `char_be` to be valid UTF-8 up to the `index` (inclusive).
-        let text = core::str::from_utf8(&char_be[..leading_ones]).unwrap();
+        // SAFETY: We have verified `char_be` to be valid UTF-8 up to the `leading_ones` (exclusive).
+        let text = unsafe { core::str::from_utf8(&char_be[..leading_ones]).unwrap_unchecked() };
         for ch in text.chars() {
             let mut buf = [0; 4];
             if rng.gen_bool(0.5) {
