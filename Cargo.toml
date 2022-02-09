@@ -12,3 +12,6 @@ resolver = "2"
 version = "0.8"
 default-features = false
 features = ["getrandom", "small_rng"]
+
+[profile.release]
+lto = true
