@@ -1,17 +1,21 @@
 [package]
 name = "spongemock"
 description = "A simple CLI tool to Spongemock-ify text."
-version = "0.6.5"
+version = "0.7.0"
 license = "MIT"
 repository = "https://github.com/Some-Dood/spongemock_cli"
 authors = ["Basti Ortiz <ortizbasti16@gmail.com>"]
 edition = "2021"
 resolver = "2"
 
-[dependencies.rand]
-version = "0.8"
+[dependencies]
+utf8-chars = "3"
+
+[dependencies.nanorand]
+version = "0.7"
 default-features = false
-features = ["getrandom", "small_rng"]
+features = ["wyrand"]
 
 [profile.release]
 lto = true
+strip = true
